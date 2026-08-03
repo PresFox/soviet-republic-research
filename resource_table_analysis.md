@@ -14,7 +14,7 @@ Source: `FUN_1402A1D60` and the post-processing functions `FUN_1402A92D0` and `F
 
 | Offset | Proposed name | Confidence | Evidence |
 |---:|---|---|---|
-| `0x44` | `productionChainDepth` | High | The recursive price calculation uses it as dependency depth. Ordinary values are 0–4; special resources use negative sentinels. |
+| `0x44` | `resourceClass_0x44` | Medium | A classification used mainly for special handling of negative classes. Positive values 0–4 are not used as recursion depth by `FUN_1402A9470`; their precise distinction remains unknown. |
 | `0x50` | `workerPriceMultiplier` | High | When positive, `FUN_1402A9F40` derives both prices by multiplying the workers-resource prices by this value. |
 | `0x58` | `calculatedPriceA` | High | Written by the recursive resource-price calculator and subsequently adjusted and bounded. |
 | `0x5C` | `calculatedPriceB` | High | Second price calculated in parallel with `+0x58`. Exact market/currency ordering is not yet proven. |
@@ -31,11 +31,12 @@ Source: `FUN_1402A1D60` and the post-processing functions `FUN_1402A92D0` and `F
 
 `price A/B` deliberately avoids assigning rubles versus dollars until a caller proves the ordering.
 
-### `productionChainDepth` special values
+### `resourceClass_0x44` observations
 
-- `0`: raw resource
-- `1`–`4`: increasing production dependency depth
-- `-1`, `-2`, `-3`, `-4`, `-5`: special/nonstandard resources. Their exact individual meanings need separate caller analysis; `-2` and `-5` receive explicit special price handling.
+- Positive values `0`–`4` correlate loosely with resource groups, but the recursive price calculator treats them equivalently.
+- Price recursion follows actual building input/output recipes, independently of this number.
+- `-1` through `-5` are special/nonstandard resource classes. `-1`, `-2`, and `-5` receive explicit price-return handling.
+- Chemicals and explosives being class `0` does not mean the game considers them easy to manufacture.
 
 ## Repeated transport/presentation profiles
 

@@ -101,6 +101,7 @@ tr:hover td:first-child { background-color: #303d48; }
 <script>
 const source = document.getElementById('resources');
 const headers = [...source.tHead.rows[0].cells].map(cell => cell.innerText);
+headers[2] = 'resourceClass_0x44';
 const records = [...source.tBodies[0].rows].map((row, originalIndex) => ({
   originalIndex,
   values: [...row.cells].map(cell => cell.innerHTML),
