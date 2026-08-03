@@ -16,6 +16,7 @@ Source: `FUN_1402A1D60` and the post-processing functions `FUN_1402A92D0` and `F
 |---:|---|---|---|
 | `0x44` | `resourceClass_0x44` | Medium | A classification used mainly for special handling of negative classes. Positive values 0–4 are not used as recursion depth by `FUN_1402A9470`; their precise distinction remains unknown. |
 | `0x50` | `workerBasedDisposalCostMultiplier` | High | `FUN_1402A9F40` multiplies both currency prices of `workers` by this value and flips their sign, creating negative disposal-value prices for spent fuel and selected waste types. |
+| `0x54` | `compositeWastePriceContributionMultiplier` | High | `FUN_140197CB0` and `FUN_140197D80` multiply a component's amount and currency price by this field when valuing mixed or hazardous waste compositions. |
 | `0x58` | `dollarBuyPrice` | High | Matches the global-market dollar Buy value exactly after display rounding. |
 | `0x5C` | `rubleBuyPrice` | High | Matches the global-market ruble Buy value exactly after display rounding. |
 | `0x60` | `dollarSellPrice` | High | The other dollar price bound paired with the buy price at `+0x58`. |
@@ -74,7 +75,6 @@ This is a material/recycling relationship, not necessarily a production-chain re
 
 ## Still unresolved
 
-- `+0x54`: almost exclusively populated for waste resources, but its exact waste-system meaning remains unverified.
 - `+0x78/+0x7C` are confirmed direct price components; their precise economic labels remain unknown.
 - `+0x98/+0x9C/+0xA0` and `+0xB8/+0xBC/+0xC0` are confirmed dynamic-market response coefficients; their exact player-facing terminology remains unknown.
 - `+0xC8` and `+0x248`: real classification flags, but neither uniquely denotes citizen-consumed goods.

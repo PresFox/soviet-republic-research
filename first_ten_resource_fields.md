@@ -6,7 +6,7 @@ Analysis is based on `InitializeHardcodedResourceDefinitions`, `CalculateResourc
 |---:|---|---|---|
 | `0x44` | `resourceClass_0x44` | Medium | Selects special handling for negative resource classes. Positive values 0–4 are not recursion depth and remain undecoded. |
 | `0x50` | `workerBasedDisposalCostMultiplier` | High | Multiplies the corresponding `workers` price and flips its sign, producing a negative disposal-value price for spent fuel and selected waste types. |
-| `0x54` | unknown | Low | Nonzero almost exclusively on waste records. Values range from tiny fractions for recyclable waste to 1 for several terminal waste types. No verified consumer has yet been isolated. |
+| `0x54` | `compositeWastePriceContributionMultiplier` | High | When valuing mixed or hazardous waste, each component's amount and market price are multiplied by this field. It controls how much that component contributes to the composite waste transaction price. |
 | `0x58` | `dollarBuyPrice` | High | Matches the dollar Buy column in the global-market GUI exactly after display rounding. |
 | `0x5C` | `rubleBuyPrice` | High | Matches the ruble Buy column in the global-market GUI exactly after display rounding. |
 | `0x78` | `directDollarPriceComponent` | High | Direct per-resource component added into recursive dollar pricing. It is also randomized/scaled during market initialization and temporarily backed up at `+0x80`. |
