@@ -14,7 +14,10 @@ p { margin: 3px 0; color: #aebbc7; }
 input, select, button { background: #111820; color: #e7edf3; border: 1px solid #465463; border-radius: 4px; padding: 6px 9px; }
 input { min-width: 260px; }
 button { cursor: pointer; }
-.table-wrap { overflow: auto; height: calc(100vh - 150px); }
+.table-wrap { padding: 12px; overflow: visible; }
+.table-band { margin: 0 0 22px; overflow-x: auto; border: 1px solid #35404b; }
+.table-band table { width: 100%; }
+#resources { display: none; }
 table { border-collapse: separate; border-spacing: 0; font: 12px Consolas, monospace; white-space: nowrap; }
 th, td { padding: 6px 8px; border-right: 1px solid #303943; border-bottom: 1px solid #303943; text-align: right; }
 th { position: sticky; top: 0; z-index: 2; background: #24303a; color: #dbe9f5; cursor: pointer; }
@@ -95,44 +98,106 @@ tr:hover td:first-child { background-color: #303d48; }
 <tr><td>waste_other</td><td>552</td><td>0</td><td>0,699999988</td><td>1</td><td>10</td><td>10</td><td>0,699999988</td><td>0,800000012</td><td>0,949999988</td><td>1,04999995</td><td>350</td><td>200</td><td>0,5</td><td>1</td><td>0,949999988</td><td>1,04999995</td><td>500</td><td>500</td><td>0,5</td><td>1</td><td>0</td><td>0,400000006</td><td>2,5</td><td>2,5</td><td>1</td><td>0,800000012</td><td>3</td><td>3,75</td><td>0,699999988</td><td>1</td><td>2,5</td><td>1</td><td>5</td><td>5</td><td>0,049999997</td><td>0,049999997</td><td>1</td><td>1,5</td><td>1,5</td><td>0,5</td><td>3,5</td><td>3,5</td><td>0,75</td><td>4</td><td>4</td><td>1</td><td>5</td><td>5</td><td>1</td><td>5</td><td>20</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>0,400000006</td><td>2,5</td><td>2,5</td><td>1</td><td>1</td><td>2,5</td><td>2,5</td><td>1</td><td>2,5</td><td>2,5</td><td>1</td><td>1</td><td>1</td><td>1</td><td>5</td><td>5</td><td>0,049999997</td><td>0,049999997</td><td>1</td><td>5</td><td>5</td><td>0,049999997</td><td>0,049999997</td><td>1065353216</td><td>2,5</td><td>2,5</td><td>18</td><td>0,300000012</td><td>resources/generalcargo_vehicle.nmf<br>resources/generalcargo_vehicle.mtl</td></tr>
 <tr><td>waste_ash</td><td>562</td><td>0</td><td>0,600000024</td><td>1</td><td>10</td><td>10</td><td>0,600000024</td><td>0,699999988</td><td>0,949999988</td><td>1,04999995</td><td>200</td><td>350</td><td>0,5</td><td>1</td><td>0,949999988</td><td>1,04999995</td><td>500</td><td>500</td><td>0,5</td><td>1</td><td>0</td><td>0,400000006</td><td>2,5</td><td>2,5</td><td>1</td><td>0,800000012</td><td>3</td><td>3,75</td><td>0,699999988</td><td>1</td><td>2,5</td><td>1</td><td>5</td><td>5</td><td>0,049999997</td><td>0,049999997</td><td>1</td><td>1,5</td><td>1,5</td><td>0,5</td><td>3,5</td><td>3,5</td><td>0,75</td><td>4</td><td>4</td><td>1</td><td>5</td><td>5</td><td>1</td><td>5</td><td>20</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>0,400000006</td><td>2,5</td><td>2,5</td><td>1</td><td>1</td><td>2,5</td><td>2,5</td><td>1</td><td>2,5</td><td>2,5</td><td>1</td><td>1</td><td>1</td><td>1</td><td>5</td><td>5</td><td>0,049999997</td><td>0,049999997</td><td>1</td><td>5</td><td>5</td><td>0,049999997</td><td>0,049999997</td><td>1065353216</td><td>2,5</td><td>2,5</td><td>19</td><td>0,300000012</td><td>resources/generalcargo_vehicle.nmf<br>resources/generalcargo_vehicle.mtl</td></tr></tbody></table></div>
 <script>
-document.querySelectorAll('th').forEach((th, column) => th.addEventListener('click', () => {
-  const body = th.closest('table').tBodies[0];
-  const direction = th.dataset.direction === 'asc' ? -1 : 1;
-  th.dataset.direction = direction === 1 ? 'asc' : 'desc';
-  [...body.rows].sort((a, b) => {
-    const av = a.cells[column].innerText.trim(), bv = b.cells[column].innerText.trim();
-    const an = Number(av), bn = Number(bv);
-    return direction * ((!Number.isNaN(an) && !Number.isNaN(bn)) ? an - bn : av.localeCompare(bv));
-  }).forEach(row => body.appendChild(row));
+const source = document.getElementById('resources');
+const headers = [...source.tHead.rows[0].cells].map(cell => cell.innerText);
+const records = [...source.tBodies[0].rows].map((row, originalIndex) => ({
+  originalIndex,
+  values: [...row.cells].map(cell => cell.innerHTML),
+  searchable: row.innerText.toLowerCase()
 }));
-const table = document.getElementById('resources');
-const originalRows = [...table.tBodies[0].rows];
+let visibleRecords = [...records];
+let sortColumn = null;
+let sortDirection = 1;
+const host = source.parentElement;
 const groupColumn = document.getElementById('groupColumn');
-[...table.tHead.rows[0].cells].forEach((cell, index) => {
+headers.forEach((label, index) => {
   const option = document.createElement('option');
-  option.value = index; option.textContent = cell.innerText;
+  option.value = index; option.textContent = label;
   groupColumn.appendChild(option);
 });
+
+function textValue(html) {
+  const element = document.createElement('div');
+  element.innerHTML = html;
+  return element.innerText.trim();
+}
+
+function compareValues(a, b, column) {
+  const av = textValue(a.values[column]).replace(',', '.');
+  const bv = textValue(b.values[column]).replace(',', '.');
+  const an = Number(av), bn = Number(bv);
+  return (!Number.isNaN(an) && !Number.isNaN(bn)) ? an - bn : av.localeCompare(bv);
+}
+
+function columnGroups() {
+  const available = Math.max(420, host.clientWidth - 26);
+  const nameWidth = 155;
+  const groups = [];
+  let group = [], used = nameWidth;
+  for (let column = 1; column < headers.length; column++) {
+    const width = column === headers.length - 1
+      ? 360
+      : Math.min(220, Math.max(92, headers[column].length * 7.4 + 24));
+    if (group.length && used + width > available) {
+      groups.push(group); group = []; used = nameWidth;
+    }
+    group.push(column); used += width;
+  }
+  if (group.length) groups.push(group);
+  return groups;
+}
+
+function render() {
+  host.querySelectorAll('.table-band').forEach(element => element.remove());
+  columnGroups().forEach(columns => {
+    const band = document.createElement('div');
+    band.className = 'table-band';
+    const table = document.createElement('table');
+    const head = table.createTHead().insertRow();
+    [0, ...columns].forEach(column => {
+      const th = document.createElement('th');
+      th.textContent = headers[column] + (sortColumn === column ? (sortDirection === 1 ? ' ▲' : ' ▼') : '');
+      th.addEventListener('click', () => {
+        sortDirection = sortColumn === column ? -sortDirection : 1;
+        sortColumn = column;
+        visibleRecords.sort((a, b) => sortDirection * compareValues(a, b, column));
+        render();
+      });
+      head.appendChild(th);
+    });
+    const body = table.createTBody();
+    visibleRecords.forEach(record => {
+      const row = body.insertRow();
+      [0, ...columns].forEach(column => row.insertCell().innerHTML = record.values[column]);
+    });
+    band.appendChild(table);
+    host.appendChild(band);
+  });
+}
+
 document.getElementById('search').addEventListener('input', event => {
   const query = event.target.value.trim().toLowerCase();
-  [...table.tBodies[0].rows].forEach(row => {
-    row.hidden = query && !row.innerText.toLowerCase().includes(query);
-  });
+  visibleRecords = records.filter(record => !query || record.searchable.includes(query));
+  if (sortColumn !== null) visibleRecords.sort((a, b) => sortDirection * compareValues(a, b, sortColumn));
+  render();
 });
 document.getElementById('groupButton').addEventListener('click', () => {
   if (groupColumn.value === '') return;
-  const column = Number(groupColumn.value), body = table.tBodies[0];
-  [...body.rows].sort((a, b) => {
-    const av = a.cells[column].innerText.trim(), bv = b.cells[column].innerText.trim();
-    const an = Number(av), bn = Number(bv);
-    return (!Number.isNaN(an) && !Number.isNaN(bn)) ? an - bn : av.localeCompare(bv);
-  }).forEach(row => body.appendChild(row));
+  sortColumn = Number(groupColumn.value); sortDirection = 1;
+  visibleRecords.sort((a, b) => compareValues(a, b, sortColumn));
+  render();
 });
 document.getElementById('resetButton').addEventListener('click', () => {
   document.getElementById('search').value = '';
   groupColumn.value = '';
-  originalRows.forEach(row => { row.hidden = false; table.tBodies[0].appendChild(row); });
+  sortColumn = null; sortDirection = 1; visibleRecords = [...records]; render();
 });
+let resizeTimer;
+window.addEventListener('resize', () => {
+  clearTimeout(resizeTimer);
+  resizeTimer = setTimeout(render, 150);
+});
+render();
 </script>
 </body>
 </html>
