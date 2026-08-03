@@ -50,6 +50,8 @@ The middle of the record is not a collection of unrelated flags. It contains rep
 
 Further blocks continue at roughly `0x20` intervals through the record. Some values persist because the initializer reuses one temporary `0x340` record and its constructor supplies defaults. Therefore a nonzero value alone does **not** prove that a resource belongs to that cargo category. The consumers of each block must be traced before naming all of them.
 
+`FUN_1402AAC20` now provides direct consumer-side proof of this layout. Given a cargo/storage category from 0 through 17, it tests `ResourceRecord + 0xCC + category * 0x20`; resources whose value is positive are collected as compatible with that category. The exact category-number-to-name mapping still needs to be established.
+
 The table does not currently expose a proven single `cargoType` enum. Vehicle/building compatibility may use these profiles together with external vehicle/storage definitions rather than one resource field.
 
 ## Recycling families (`+0x30C`)
@@ -73,7 +75,9 @@ This is a material/recycling relationship, not necessarily a production-chain re
 ## Still unresolved
 
 - Exact identities of price A and price B.
-- `+0x54`, `+0x78`, `+0x7C`, `+0x98`, `+0x9C`, `+0xA0`, `+0xB8`, `+0xBC`, `+0xC0`.
+- `+0x54`: almost exclusively populated for waste resources, but its exact waste-system meaning remains unverified.
+- `+0x78/+0x7C` are confirmed direct price components; their precise economic labels remain unknown.
+- `+0x98/+0x9C/+0xA0` and `+0xB8/+0xBC/+0xC0` are confirmed dynamic-market response coefficients; their exact player-facing terminology remains unknown.
 - `+0xC8` and `+0x248`: real classification flags, but neither uniquely denotes citizen-consumed goods.
 - Exact semantics and consumers of every repeated transport/presentation block.
 - `+0x310` (normally 0.3, but 1 for two records); likely a global physical/economic scaling parameter, not safely nameable yet.

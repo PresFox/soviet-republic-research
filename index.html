@@ -102,6 +102,11 @@ tr:hover td:first-child { background-color: #303d48; }
 const source = document.getElementById('resources');
 const headers = [...source.tHead.rows[0].cells].map(cell => cell.innerText);
 headers[2] = 'resourceClass_0x44';
+headers[7] = 'directPriceComponentA';
+headers[8] = 'directPriceComponentB';
+headers[9] = 'priceRangeMultiplierA_low';
+headers[10] = 'priceRangeMultiplierA_high';
+headers[11] = 'positiveImbalanceScaleA';
 const records = [...source.tBodies[0].rows].map((row, originalIndex) => ({
   originalIndex,
   values: [...row.cells].map(cell => cell.innerHTML),

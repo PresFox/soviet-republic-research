@@ -8,6 +8,7 @@ Community reverse-engineering notes and extracted research tables for *Workers &
 - [Browse discovered native functions](https://presfox.github.io/soviet-republic-research/functions.html)
 - [Download the CSV](resources.csv)
 - [Read the field analysis](resource_table_analysis.md)
+- [Read the first ten field investigation](first_ten_resource_fields.md)
 
 The table currently contains 57 resource definitions and 85 numeric fields. Field names are only assigned where the decompiled code provides reasonable evidence; unresolved fields retain their memory offsets.
 
