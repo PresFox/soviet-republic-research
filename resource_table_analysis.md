@@ -27,6 +27,9 @@ Source: `FUN_1402A1D60` and the post-processing functions `FUN_1402A92D0` and `F
 | `0xA4` | `dynamicDollarPriceMultiplier` | High | Live supply/demand multiplier applied to dollar pricing. |
 | `0xA8`, `0xAC` | `rubleSell/BuyMultiplier` | High | Ruble-side price multipliers, usually 0.95 and 1.05. |
 | `0xC4` | `dynamicRublePriceMultiplier` | High | Live supply/demand multiplier applied to ruble pricing. |
+| `0x9C`, `0xB8`, `0xBC` | `dynamicMarketImbalanceScales` | High | Currency- and sign-specific divisors controlling how strongly supply/demand pressure moves the live price multipliers. |
+| `0xA0`, `0xC0` | `crossCurrencyFlowCoupling` | High | Weights by which flow imbalance in one currency market contributes to pressure in the other. |
+| `0xC8` | `resourcePairingEligibilityFlag` (tentative) | Medium-low | Gates creation of resource-pair/cache records in `FUN_1401DF6B0` and `FUN_1401E2310`; it is not a price field. |
 | `0x2EC` | `isWasteResource` | High | Explicitly set only for the ten waste/fertiliser records. |
 | `0x30C` | `recyclingMaterialFamily` | High | Groups resources with the corresponding recoverable waste/material family; it does not match transport cargo classes. |
 
@@ -76,8 +79,8 @@ This is a material/recycling relationship, not necessarily a production-chain re
 ## Still unresolved
 
 - `+0x78/+0x7C` are confirmed direct price components; their precise economic labels remain unknown.
-- `+0x98/+0x9C/+0xA0` and `+0xB8/+0xBC/+0xC0` are confirmed dynamic-market response coefficients; their exact player-facing terminology remains unknown.
-- `+0xC8` and `+0x248`: real classification flags, but neither uniquely denotes citizen-consumed goods.
+- `+0x98/+0x9C/+0xA0` and `+0xB8/+0xBC/+0xC0` are confirmed dynamic-market response coefficients. Their mathematical roles are known, although official player-facing terminology is not.
+- `+0xC8` gates a runtime resource-pairing/cache path. Its exact logistics or production meaning remains unresolved. `+0x248` is also still unresolved.
 - Exact semantics and consumers of every repeated transport/presentation block.
 - `+0x310` (normally 0.3, but 1 for two records); likely a global physical/economic scaling parameter, not safely nameable yet.
 
