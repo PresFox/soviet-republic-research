@@ -17,11 +17,11 @@ Analysis is based on `InitializeHardcodedResourceDefinitions`, `CalculateResourc
 
 ## Closely related fields immediately following these ten
 
-- `+0x9C`: negative-imbalance scale for price A.
-- `+0xA0`: cross-couples the second recorded market-flow difference into price-A pressure.
-- `+0xA4`: live dynamic multiplier applied to price A.
-- `+0xB8/+0xBC`: positive/negative imbalance scales for price B.
-- `+0xC0`: inverse cross-coupling coefficient for price-B pressure.
-- `+0xC4`: live dynamic multiplier applied to price B.
+- `+0x9C`: negative-imbalance scale for dollars.
+- `+0xA0`: couples ruble-market flow into dollar-price pressure.
+- `+0xA4`: live dynamic dollar-price multiplier.
+- `+0xB8/+0xBC`: positive/negative imbalance scales for rubles.
+- `+0xC0`: couples dollar-market flow into ruble-price pressure.
+- `+0xC4`: live dynamic ruble-price multiplier.
 
 The global-market GUI comparison identifies side A as dollars and side B as rubles. For normal positive prices, `sell = buy × 0.95 / 1.05`, matching the displayed values to two decimals.

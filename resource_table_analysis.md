@@ -18,14 +18,14 @@ Source: `FUN_1402A1D60` and the post-processing functions `FUN_1402A92D0` and `F
 | `0x50` | `workerPriceMultiplier` | High | When positive, `FUN_1402A9F40` derives both prices by multiplying the workers-resource prices by this value. |
 | `0x58` | `dollarBuyPrice` | High | Matches the global-market dollar Buy value exactly after display rounding. |
 | `0x5C` | `rubleBuyPrice` | High | Matches the global-market ruble Buy value exactly after display rounding. |
-| `0x60` | `priceBoundA` | High | Calculated from price A and a multiplier; swapped with `+0x58` if the ordering is reversed. |
-| `0x64` | `priceBoundB` | High | Calculated from price B and a multiplier; swapped with `+0x5C` if required. |
-| `0x68`, `0x6C` | `productionCostAdjustmentA/B` | Medium-high | Calculated by scanning building production recipes and added to the two prices. |
-| `0x70`, `0x74` | `specialPriceCopyA/B` | High | Copies of the computed prices for resources whose chain-depth sentinel is `-2`. |
-| `0x88`, `0x8C` | `priceMultiplierA_low/high` | High | Directly multiply price A/bound A. Usually 0.95 and 1.05. |
-| `0xA4` | `priceMultiplierA_base` | High | Direct multiplier applied to price A; currently 1 for every resource. |
-| `0xA8`, `0xAC` | `priceMultiplierB_low/high` | High | Directly multiply price B/bound B. Usually 0.95 and 1.05. |
-| `0xC4` | `priceMultiplierB_base` | High | Direct multiplier applied to price B; currently 1 for every resource. |
+| `0x60` | `dollarSellPrice` | High | The other dollar price bound paired with the buy price at `+0x58`. |
+| `0x64` | `rubleSellPrice` | High | The other ruble price bound paired with the buy price at `+0x5C`. |
+| `0x68`, `0x6C` | `dollar/rubleProductionCostAdjustment` | Medium-high | Calculated by scanning building production recipes and added to the corresponding currency prices. |
+| `0x70`, `0x74` | `specialDollar/RublePriceCopy` | High | Currency-specific copies of computed prices for resources whose class sentinel is `-2`. |
+| `0x88`, `0x8C` | `dollarSell/BuyMultiplier` | High | Dollar-side price multipliers, usually 0.95 and 1.05. |
+| `0xA4` | `dynamicDollarPriceMultiplier` | High | Live supply/demand multiplier applied to dollar pricing. |
+| `0xA8`, `0xAC` | `rubleSell/BuyMultiplier` | High | Ruble-side price multipliers, usually 0.95 and 1.05. |
+| `0xC4` | `dynamicRublePriceMultiplier` | High | Live supply/demand multiplier applied to ruble pricing. |
 | `0x2EC` | `isWasteResource` | High | Explicitly set only for the ten waste/fertiliser records. |
 | `0x30C` | `recyclingMaterialFamily` | High | Groups resources with the corresponding recoverable waste/material family; it does not match transport cargo classes. |
 

@@ -109,6 +109,15 @@ headers[8] = 'directRublePriceComponent';
 headers[9] = 'dollarSellMultiplier';
 headers[10] = 'dollarBuyMultiplier';
 headers[11] = 'positiveImbalanceScaleDollar';
+headers[12] = 'negativeImbalanceScaleDollar';
+headers[13] = 'rubleFlowCouplingIntoDollar';
+headers[14] = 'dynamicDollarPriceMultiplier';
+headers[15] = 'rubleSellMultiplier';
+headers[16] = 'rubleBuyMultiplier';
+headers[17] = 'positiveImbalanceScaleRuble';
+headers[18] = 'negativeImbalanceScaleRuble';
+headers[19] = 'dollarFlowCouplingIntoRuble';
+headers[20] = 'dynamicRublePriceMultiplier';
 const records = [...source.tBodies[0].rows].map((row, originalIndex) => ({
   originalIndex,
   values: [...row.cells].map(cell => cell.innerHTML),
