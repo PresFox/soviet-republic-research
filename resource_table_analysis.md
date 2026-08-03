@@ -46,17 +46,17 @@ The global-market GUI comparison proves that side A is dollars and side B is rub
 
 The middle of the record is not a collection of unrelated flags. It contains repeated profile blocks. A typical block begins with an enable/scale value and is followed by dimensions or capacity/presentation parameters. Confirmed block starts include:
 
-- `0xCC`: packaged/general cargo profile
-- `0xEC`: open-storage profile
-- `0x10C`: aggregate profile
+- `0xCC`: `RESOURCE_TRANSPORT_COVERED` profile
+- `0xEC`: `RESOURCE_TRANSPORT_OPEN` profile
+- `0x10C`: `RESOURCE_TRANSPORT_GRAVEL` profile
 - `0x12C`: liquid profile
 - `0x14C`: dry-bulk profile
 
 Further blocks continue at roughly `0x20` intervals through the record. Some values persist because the initializer reuses one temporary `0x340` record and its constructor supplies defaults. Therefore a nonzero value alone does **not** prove that a resource belongs to that cargo category. The consumers of each block must be traced before naming all of them.
 
-`FUN_1402AAC20` now provides direct consumer-side proof of this layout. Given a cargo/storage category from 0 through 17, it tests `ResourceRecord + 0xCC + category * 0x20`; resources whose value is positive are collected as compatible with that category. The exact category-number-to-name mapping still needs to be established.
+`CollectResourcesCompatibleWithTransportType` (`1402AAC20`) provides direct consumer-side proof of this layout. Given a cargo/storage category from 0 through 17, it tests `ResourceRecord + 0xCC + category * 0x20`; resources whose value is positive are collected as compatible with that category. `ParseResourceTransportType` (`1402A15A0`) establishes the exact category-number-to-name mapping.
 
-The table does not currently expose a proven single `cargoType` enum. Vehicle/building compatibility may use these profiles together with external vehicle/storage definitions rather than one resource field.
+The resource record does not contain one exclusive `cargoType` enum. It contains one conversion/compatibility profile per transport type, allowing a resource to have values in more than one profile.
 
 ## Recycling families (`+0x30C`)
 

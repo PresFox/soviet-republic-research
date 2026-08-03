@@ -36,8 +36,17 @@ tr:hover td { background: #27323c; }
 <tr><td>140051E30</td><td>BuildInfrastructureToolLookupTables</td><td>Infrastructure GUI</td><td class="medium">Medium</td><td>Likely builds lookup collections connecting named infrastructure tools with their internal records.</td></tr>
 <tr><td>14007C400</td><td>ProcessGameInputAndGuiActions</td><td>Input/GUI</td><td class="tentative">Tentative</td><td>Very large input and GUI action dispatcher.</td></tr>
 <tr><td>14010C040</td><td>ParseConstructionPhaseName</td><td>Construction</td><td class="high">High</td><td>Converts construction phase names from definitions into the game’s internal phase identifiers.</td></tr>
+<tr><td>1400E4CB0</td><td>ResourceTransportTypeToName</td><td>Resources/transport</td><td class="high">High</td><td>Maps transport-type indices 0–17 back to their RESOURCE_TRANSPORT_* configuration names.</td></tr>
+<tr><td>140136570</td><td>FUN_140136570</td><td>Resources/storage runtime</td><td class="tentative">Tentative</td><td>Large building/storage runtime update that uses transport-profile conversion factors when evaluating stored resource amounts.</td></tr>
+<tr><td>1401686C0</td><td>FUN_1401686C0</td><td>Buildings/runtime</td><td class="tentative">Tentative</td><td>Large building-object cleanup/update path examined while rejecting false resource-field matches.</td></tr>
+<tr><td>14016E340</td><td>FUN_14016E340</td><td>Resources/storage runtime</td><td class="medium">Medium</td><td>Calculates normalized storage/resource amounts by dividing quantities by the active transport-profile conversion factor.</td></tr>
+<tr><td>1401732B0</td><td>FUN_1401732B0</td><td>Resources/logistics</td><td class="medium">Medium</td><td>Processes building storage or transfer records and repeatedly converts quantities using resource transport profiles.</td></tr>
+<tr><td>140176070</td><td>FUN_140176070</td><td>Resources/storage runtime</td><td class="medium">Medium</td><td>Calculates an effective stored amount or capacity from a resource and the storage record’s selected transport type.</td></tr>
 <tr><td>140197CB0</td><td>CalculateCompositeWasteTransactionPrice</td><td>Resources/economy</td><td class="high">High</td><td>Calculates one currency value for a mixed or hazardous waste composition, weighting each component by ResourceRecord+0x54.</td></tr>
 <tr><td>140197D80</td><td>CalculateCompositeWasteCurrencyPrices</td><td>Resources/economy</td><td class="high">High</td><td>Calculates both currency values for a mixed or hazardous waste composition using each component’s market price and +0x54 contribution multiplier.</td></tr>
+<tr><td>14019BE10</td><td>FUN_14019BE10</td><td>Resources/GUI</td><td class="medium">Medium</td><td>Builds localized resource/storage text and converts displayed quantities with the applicable transport-profile factor.</td></tr>
+<tr><td>1401DE240</td><td>FUN_1401DE240</td><td>Resources/logistics</td><td class="tentative">Tentative</td><td>Evaluates a resource-transfer candidate using normalized amounts, timing, endpoints, and active storage profile data.</td></tr>
+<tr><td>1401E3B60</td><td>FUN_1401E3B60</td><td>Resources/logistics</td><td class="medium">Medium</td><td>Large resource-distribution calculation that repeatedly uses per-transport conversion factors.</td></tr>
 <tr><td>1401C1700</td><td>FUN_1401C1700</td><td>Resources/runtime</td><td class="tentative">Tentative</td><td>Runtime caller that conditionally rebuilds a resource-pair/cache structure through FUN_1401DF6B0.</td></tr>
 <tr><td>1401C5FE0</td><td>FUN_1401C5FE0</td><td>Resources/runtime</td><td class="tentative">Tentative</td><td>Updates a resource-handling runtime object and invokes the larger resource distribution/cache rebuild at 1401E2310.</td></tr>
 <tr><td>1401C6D60</td><td>FUN_1401C6D60</td><td>Resources/runtime</td><td class="tentative">Tentative</td><td>Related runtime update path and second caller of the resource distribution/cache rebuild at 1401E2310.</td></tr>
@@ -47,10 +56,12 @@ tr:hover td { background: #27323c; }
 <tr><td>14028C700</td><td>InitializeGameAndGuiSystems</td><td>Core loader</td><td class="high">High</td><td>Main initialization routine that creates managers and initializes resources, infrastructure, GUI models, tools, and textures.</td></tr>
 <tr><td>1402960A0</td><td>LoadGuiTexturesAndToolIcons</td><td>GUI</td><td class="high">High</td><td>Loads GUI textures, infrastructure tool icons, cursor images, and resource icons.</td></tr>
 <tr><td>1402A1D60</td><td>InitializeHardcodedResourceDefinitions</td><td>Resources</td><td class="high">High</td><td>Creates the complete hardcoded resource table, including names, economic parameters, cargo profiles, waste families, meshes, and materials.</td></tr>
+<tr><td>1402A15A0</td><td>ParseResourceTransportType</td><td>Resources/transport</td><td class="high">High</td><td>Maps RESOURCE_TRANSPORT_* configuration strings to the game’s transport-type indices 0–17.</td></tr>
 <tr><td>1402A92D0</td><td>CalculateInitialResourcePrices</td><td>Resources/economy</td><td class="high">High</td><td>Calculates the two initial resource price values, with special handling for synthetic resources.</td></tr>
 <tr><td>1402A9470</td><td>CalculateResourcePriceRecursive</td><td>Resources/economy</td><td class="medium">Medium</td><td>Recursively derives a resource price from its production dependencies.</td></tr>
 <tr><td>1402A9F40</td><td>FinalizeResourcePricesAndBounds</td><td>Resources/economy</td><td class="high">High</td><td>Adds production-cost adjustments and applies price multipliers and bounds.</td></tr>
 <tr><td>1402AA7C0</td><td>FindResourceByInternalName</td><td>Resources</td><td class="high">High</td><td>Returns a resource record by its internal ASCII name.</td></tr>
+<tr><td>1402AAC20</td><td>CollectResourcesCompatibleWithTransportType</td><td>Resources/transport</td><td class="high">High</td><td>Collects resources with a positive factor at ResourceRecord+0xCC+transportType×0x20.</td></tr>
 <tr><td>1402FB130</td><td>UpdateDynamicResourceMarketPrices</td><td>Resources/economy</td><td class="high">High</td><td>Aggregates recent resource flows, converts supply/demand imbalance into two market price multipliers, and recalculates resource prices.</td></tr>
 <tr><td>1402E6B20</td><td>InitializeGuiCategoryDefinitions</td><td>GUI</td><td class="medium">Medium</td><td>Creates or populates GUI category definitions.</td></tr>
 <tr><td>1402E9420</td><td>RegisterNamedInfrastructureTools</td><td>Infrastructure GUI</td><td class="high">High</td><td>Creates named infrastructure tool records, assigning internal names, types, subtypes, localization IDs, icons, and flags.</td></tr>
@@ -66,6 +77,7 @@ tr:hover td { background: #27323c; }
 <tr><td>1404C70C0</td><td>BuildInfrastructureUiData</td><td>Infrastructure GUI</td><td class="medium">Medium</td><td>Likely creates runtime GUI data associated with infrastructure tools.</td></tr>
 <tr><td>1404D99B0</td><td>IsRoadToolRecord</td><td>Roads</td><td class="high">High</td><td>Checks whether a tool record belongs to the road system.</td></tr>
 <tr><td>1404F38A0</td><td>ConstructNetworkManager</td><td>Network managers</td><td class="high">High</td><td>Constructor for the common network-manager object used by roads, rails, pipes, wires, and related infrastructure.</td></tr>
+<tr><td>1404BA4C0</td><td>FUN_1404BA4C0</td><td>GUI</td><td class="tentative">Tentative</td><td>Large formatted GUI-report routine examined while separating similarly numbered non-resource fields from resource-profile fields.</td></tr>
 <tr><td>1404F3B60</td><td>InitializeNetworkManager</td><td>Network managers</td><td class="high">High</td><td>Initializes a network manager using a manager type and the shared game/GUI data object.</td></tr>
 <tr><td>1404F9F40</td><td>UpdateRoadSegmentSpeed</td><td>Road runtime</td><td class="high">High</td><td>Writes nominal/effective speed properties into a runtime road segment.</td></tr>
 <tr><td>1404FCA20</td><td>UpdateInfrastructurePlacementPreview</td><td>Infrastructure placement</td><td class="high">High</td><td>Updates the live infrastructure preview, including geometry and displayed estimates before placement is finalized.</td></tr>
@@ -80,6 +92,8 @@ tr:hover td { background: #27323c; }
 <tr><td>1406BB840</td><td>UpdateSegmentEffectiveSpeedFromTraversal</td><td>Road runtime</td><td class="medium">Medium</td><td>Updates effective speed using traversal or condition-related information.</td></tr>
 <tr><td>1406BBA80</td><td>AdjustSegmentEndpointSpeed</td><td>Road runtime</td><td class="medium">Medium</td><td>Adjusts speed-related values around a segment endpoint.</td></tr>
 <tr><td>1406F3590</td><td>SelectInfrastructureToolIcon</td><td>Infrastructure GUI</td><td class="high">High</td><td>Selects the appropriate icon for an infrastructure tool definition.</td></tr>
+<tr><td>1407611E0</td><td>FUN_1407611E0</td><td>GUI/economy</td><td class="tentative">Tentative</td><td>Large economy/status GUI routine referencing clothes and electronics; examined to reject unrelated object offsets.</td></tr>
+<tr><td>1404295A0</td><td>FUN_1404295A0</td><td>Resources/runtime</td><td class="medium">Medium</td><td>Builds a resource pointer collection containing resources enabled for the aggregate/gravel transport profile.</td></tr>
 </tbody>
 </table>
 </main>
