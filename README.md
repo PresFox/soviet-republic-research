@@ -5,6 +5,7 @@ Community reverse-engineering notes and extracted research tables for *Workers &
 ## Resource table
 
 - [Open the interactive resource table](https://presfox.github.io/soviet-republic-research/)
+- [Browse discovered native functions](https://presfox.github.io/soviet-republic-research/functions.html)
 - [Download the CSV](resources.csv)
 - [Read the field analysis](resource_table_analysis.md)
 

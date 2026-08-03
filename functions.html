@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Soviet Republic Function Reference</title>
+<style>
+:root { color-scheme: dark; font-family: Segoe UI, Arial, sans-serif; }
+body { margin: 0; background: #11151a; color: #e7edf3; }
+header { padding: 18px 22px; background: #192129; border-bottom: 1px solid #35404b; }
+h1 { margin: 0 0 6px; font-size: 21px; }
+p { margin: 5px 0; color: #aebbc7; max-width: 1100px; }
+a { color: #8ecbff; }
+input { margin-top: 12px; min-width: 290px; padding: 7px 9px; color: #e7edf3; background: #111820; border: 1px solid #465463; border-radius: 4px; }
+main { padding: 12px; overflow-x: auto; }
+table { width: 100%; border-collapse: collapse; font-size: 13px; }
+th, td { padding: 7px 9px; border: 1px solid #303943; vertical-align: top; text-align: left; }
+th { position: sticky; top: 0; background: #24303a; cursor: pointer; }
+td:first-child, td:nth-child(2) { white-space: nowrap; font-family: Consolas, monospace; }
+tr:hover td { background: #27323c; }
+.high { color: #8fd694; }.medium { color: #e9cf7a; }.tentative { color: #e79b7d; }
+</style>
+</head>
+<body>
+<header>
+<h1>Discovered native function reference</h1>
+<p><a href="index.html">Resource table</a> · <a href="resource_table_analysis.md">Resource analysis</a> · <a href="https://github.com/PresFox/soviet-republic-research">GitHub repository</a></p>
+<p>Names are assigned from decompilation and runtime experiments; they are not official symbols. Addresses refer to the researched executable build and may move after any game update.</p>
+<input id="search" type="search" placeholder="Filter by address, name, system, or description">
+</header>
+<main>
+<table id="functions">
+<thead><tr><th>Address</th><th>Research name</th><th>System</th><th>Confidence</th><th>Current interpretation</th></tr></thead>
+<tbody>
+<tr><td>1400053C0</td><td>ConstructGameDataRoot</td><td>Core</td><td class="medium">Medium</td><td>Constructs and initializes the large root game-data object used by most managers and GUI systems.</td></tr>
+<tr><td>140051E30</td><td>BuildInfrastructureToolLookupTables</td><td>Infrastructure GUI</td><td class="medium">Medium</td><td>Likely builds lookup collections connecting named infrastructure tools with their internal records.</td></tr>
+<tr><td>14007C400</td><td>ProcessGameInputAndGuiActions</td><td>Input/GUI</td><td class="tentative">Tentative</td><td>Very large input and GUI action dispatcher.</td></tr>
+<tr><td>14010C040</td><td>ParseConstructionPhaseName</td><td>Construction</td><td class="high">High</td><td>Converts construction phase names from definitions into the game’s internal phase identifiers.</td></tr>
+<tr><td>140213060</td><td>MapActiveToolToInfrastructureType</td><td>Infrastructure tools</td><td class="medium">Medium</td><td>Maps the currently selected tool record to an infrastructure type.</td></tr>
+<tr><td>14028C700</td><td>InitializeGameAndGuiSystems</td><td>Core loader</td><td class="high">High</td><td>Main initialization routine that creates managers and initializes resources, infrastructure, GUI models, tools, and textures.</td></tr>
+<tr><td>1402960A0</td><td>LoadGuiTexturesAndToolIcons</td><td>GUI</td><td class="high">High</td><td>Loads GUI textures, infrastructure tool icons, cursor images, and resource icons.</td></tr>
+<tr><td>1402A1D60</td><td>InitializeHardcodedResourceDefinitions</td><td>Resources</td><td class="high">High</td><td>Creates the complete hardcoded resource table, including names, economic parameters, cargo profiles, waste families, meshes, and materials.</td></tr>
+<tr><td>1402A92D0</td><td>CalculateInitialResourcePrices</td><td>Resources/economy</td><td class="high">High</td><td>Calculates the two initial resource price values, with special handling for synthetic resources.</td></tr>
+<tr><td>1402A9470</td><td>CalculateResourcePriceRecursive</td><td>Resources/economy</td><td class="medium">Medium</td><td>Recursively derives a resource price from its production dependencies.</td></tr>
+<tr><td>1402A9F40</td><td>FinalizeResourcePricesAndBounds</td><td>Resources/economy</td><td class="high">High</td><td>Adds production-cost adjustments and applies price multipliers and bounds.</td></tr>
+<tr><td>1402AA7C0</td><td>FindResourceByInternalName</td><td>Resources</td><td class="high">High</td><td>Returns a resource record by its internal ASCII name.</td></tr>
+<tr><td>1402E6B20</td><td>InitializeGuiCategoryDefinitions</td><td>GUI</td><td class="medium">Medium</td><td>Creates or populates GUI category definitions.</td></tr>
+<tr><td>1402E9420</td><td>RegisterNamedInfrastructureTools</td><td>Infrastructure GUI</td><td class="high">High</td><td>Creates named infrastructure tool records, assigning internal names, types, subtypes, localization IDs, icons, and flags.</td></tr>
+<tr><td>140317D10</td><td>BuildAndUpdateGuiPanels</td><td>GUI</td><td class="tentative">Tentative</td><td>Large routine involved in constructing and updating multiple GUI panels.</td></tr>
+<tr><td>1403BCEB0</td><td>LookupInfrastructureProperty</td><td>Infrastructure</td><td class="high">High</td><td>Hardcoded property lookup for road/rail speeds, walking speed, electrical capacity, heating capacity, and other infrastructure properties. Successfully hooked and overridden.</td></tr>
+<tr><td>1403BECF0</td><td>GenerateInfrastructureConstructionPhases</td><td>Construction</td><td class="high">High</td><td>Generates construction phases and material/work requirements for infrastructure types.</td></tr>
+<tr><td>1403C41F0</td><td>CopyConstructionPhaseRecord</td><td>Construction</td><td class="high">High</td><td>Copies an internal construction-phase record.</td></tr>
+<tr><td>1403CA6C0</td><td>FindToolForPlacedInfrastructure</td><td>Infrastructure tools</td><td class="high">High</td><td>Looks up a tool definition by the internal name of placed infrastructure.</td></tr>
+<tr><td>1403CDDE0</td><td>IsRoadInternalName</td><td>Roads</td><td class="high">High</td><td>Tests an internal name against the game’s recognized road names.</td></tr>
+<tr><td>1403D0050</td><td>HandleInfrastructurePlacementInput</td><td>Infrastructure placement</td><td class="medium">Medium</td><td>Handles mouse/input state while an infrastructure placement tool is active.</td></tr>
+<tr><td>140489C90</td><td>ProcessActiveInfrastructureToolInput</td><td>Infrastructure placement</td><td class="medium">Medium</td><td>Processes the currently active infrastructure tool and routes placement behaviour.</td></tr>
+<tr><td>1404C3FA0</td><td>InfrastructureTypeToInternalName</td><td>Infrastructure</td><td class="high">High</td><td>Maps infrastructure type information back to an internal name.</td></tr>
+<tr><td>1404C70C0</td><td>BuildInfrastructureUiData</td><td>Infrastructure GUI</td><td class="medium">Medium</td><td>Likely creates runtime GUI data associated with infrastructure tools.</td></tr>
+<tr><td>1404D99B0</td><td>IsRoadToolRecord</td><td>Roads</td><td class="high">High</td><td>Checks whether a tool record belongs to the road system.</td></tr>
+<tr><td>1404F38A0</td><td>ConstructNetworkManager</td><td>Network managers</td><td class="high">High</td><td>Constructor for the common network-manager object used by roads, rails, pipes, wires, and related infrastructure.</td></tr>
+<tr><td>1404F3B60</td><td>InitializeNetworkManager</td><td>Network managers</td><td class="high">High</td><td>Initializes a network manager using a manager type and the shared game/GUI data object.</td></tr>
+<tr><td>1404F9F40</td><td>UpdateRoadSegmentSpeed</td><td>Road runtime</td><td class="high">High</td><td>Writes nominal/effective speed properties into a runtime road segment.</td></tr>
+<tr><td>1404FCA20</td><td>UpdateInfrastructurePlacementPreview</td><td>Infrastructure placement</td><td class="high">High</td><td>Updates the live infrastructure preview, including geometry and displayed estimates before placement is finalized.</td></tr>
+<tr><td>1405189B0</td><td>FinalizeInfrastructurePlacement</td><td>Infrastructure placement</td><td class="high">High</td><td>Large placement finalization routine that creates or updates runtime segments, endpoints, geometry, and registrations.</td></tr>
+<tr><td>14051D090</td><td>ValidateInfrastructurePlacement</td><td>Infrastructure placement</td><td class="medium">Medium</td><td>Validates proposed infrastructure placement and related constraints.</td></tr>
+<tr><td>140541B20</td><td>RebuildEndpointConnections</td><td>Network runtime</td><td class="high">High</td><td>Rebuilds the connections associated with a network endpoint.</td></tr>
+<tr><td>1405422E0</td><td>UpdateEndpointVisuals</td><td>Network runtime</td><td class="medium">Medium</td><td>Updates or clears visual objects associated with a network endpoint.</td></tr>
+<tr><td>140547E20</td><td>RecoverNetworkSegmentEffectiveSpeeds</td><td>Road runtime</td><td class="medium">Medium</td><td>Recalculates or restores effective segment speeds after conditions change.</td></tr>
+<tr><td>14054A900</td><td>CalculateSegmentBounds</td><td>Network geometry</td><td class="high">High</td><td>Calculates spatial bounds from segment geometry.</td></tr>
+<tr><td>140551FC0</td><td>RebuildSegmentGeometry</td><td>Network geometry</td><td class="high">High</td><td>Rebuilds the rendered/physical geometry of a network segment.</td></tr>
+<tr><td>14056E000</td><td>RegisterSegmentInSpatialCells</td><td>Network spatial index</td><td class="high">High</td><td>Registers a segment in the game’s spatial-cell lookup structure.</td></tr>
+<tr><td>1406BB840</td><td>UpdateSegmentEffectiveSpeedFromTraversal</td><td>Road runtime</td><td class="medium">Medium</td><td>Updates effective speed using traversal or condition-related information.</td></tr>
+<tr><td>1406BBA80</td><td>AdjustSegmentEndpointSpeed</td><td>Road runtime</td><td class="medium">Medium</td><td>Adjusts speed-related values around a segment endpoint.</td></tr>
+<tr><td>1406F3590</td><td>SelectInfrastructureToolIcon</td><td>Infrastructure GUI</td><td class="high">High</td><td>Selects the appropriate icon for an infrastructure tool definition.</td></tr>
+</tbody>
+</table>
+</main>
+<script>
+const table = document.getElementById('functions');
+const originalRows = [...table.tBodies[0].rows];
+document.getElementById('search').addEventListener('input', event => {
+  const query = event.target.value.trim().toLowerCase();
+  originalRows.forEach(row => row.hidden = query && !row.innerText.toLowerCase().includes(query));
+});
+table.querySelectorAll('th').forEach((th, column) => th.addEventListener('click', () => {
+  const direction = th.dataset.direction === 'asc' ? -1 : 1;
+  th.dataset.direction = direction === 1 ? 'asc' : 'desc';
+  [...table.tBodies[0].rows].sort((a, b) => direction * a.cells[column].innerText.localeCompare(b.cells[column].innerText, undefined, { numeric: true })).forEach(row => table.tBodies[0].appendChild(row));
+}));
+</script>
+</body>
+</html>
