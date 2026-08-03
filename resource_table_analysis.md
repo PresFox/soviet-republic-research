@@ -15,7 +15,7 @@ Source: `FUN_1402A1D60` and the post-processing functions `FUN_1402A92D0` and `F
 | Offset | Proposed name | Confidence | Evidence |
 |---:|---|---|---|
 | `0x44` | `resourceClass_0x44` | Medium | A classification used mainly for special handling of negative classes. Positive values 0–4 are not used as recursion depth by `FUN_1402A9470`; their precise distinction remains unknown. |
-| `0x50` | `workerPriceMultiplier` | High | When positive, `FUN_1402A9F40` derives both prices by multiplying the workers-resource prices by this value. |
+| `0x50` | `workerBasedDisposalCostMultiplier` | High | `FUN_1402A9F40` multiplies both currency prices of `workers` by this value and flips their sign, creating negative disposal-value prices for spent fuel and selected waste types. |
 | `0x58` | `dollarBuyPrice` | High | Matches the global-market dollar Buy value exactly after display rounding. |
 | `0x5C` | `rubleBuyPrice` | High | Matches the global-market ruble Buy value exactly after display rounding. |
 | `0x60` | `dollarSellPrice` | High | The other dollar price bound paired with the buy price at `+0x58`. |

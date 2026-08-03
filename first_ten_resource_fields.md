@@ -5,7 +5,7 @@ Analysis is based on `InitializeHardcodedResourceDefinitions`, `CalculateResourc
 | Offset | Current name | Confidence | What the code establishes |
 |---:|---|---|---|
 | `0x44` | `resourceClass_0x44` | Medium | Selects special handling for negative resource classes. Positive values 0–4 are not recursion depth and remain undecoded. |
-| `0x50` | `workerPriceMultiplier` | High | When positive, price A and B are derived by multiplying the corresponding workers price. |
+| `0x50` | `workerBasedDisposalCostMultiplier` | High | Multiplies the corresponding `workers` price and flips its sign, producing a negative disposal-value price for spent fuel and selected waste types. |
 | `0x54` | unknown | Low | Nonzero almost exclusively on waste records. Values range from tiny fractions for recyclable waste to 1 for several terminal waste types. No verified consumer has yet been isolated. |
 | `0x58` | `dollarBuyPrice` | High | Matches the dollar Buy column in the global-market GUI exactly after display rounding. |
 | `0x5C` | `rubleBuyPrice` | High | Matches the ruble Buy column in the global-market GUI exactly after display rounding. |
