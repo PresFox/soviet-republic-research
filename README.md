@@ -1,0 +1,17 @@
+# Workers & Resources: Soviet Republic — Research Tables
+
+Community reverse-engineering notes and extracted research tables for *Workers & Resources: Soviet Republic*.
+
+## Resource table
+
+- [Open the interactive resource table](https://presfox.github.io/soviet-republic-research/)
+- [Download the CSV](resources.csv)
+- [Read the field analysis](resource_table_analysis.md)
+
+The table currently contains 57 resource definitions and 85 numeric fields. Field names are only assigned where the decompiled code provides reasonable evidence; unresolved fields retain their memory offsets.
+
+## Important caveat
+
+This is experimental community research. Tentative conclusions are clearly separated from strongly supported identifications, and field meanings may change after game updates or further analysis.
+
+No game executable or extracted copyrighted assets are included.
