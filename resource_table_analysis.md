@@ -52,7 +52,9 @@ The middle of the record is not a collection of unrelated flags. It contains rep
 - `0x12C`: liquid profile
 - `0x14C`: dry-bulk profile
 
-Further blocks continue at roughly `0x20` intervals through the record. Some values persist because the initializer reuses one temporary `0x340` record and its constructor supplies defaults. Therefore a nonzero value alone does **not** prove that a resource belongs to that cargo category. The consumers of each block must be traced before naming all of them.
+The blocks continue at exact `0x20` intervals through the waste profile at `0x2EC`. Some values persist because the initializer reuses one temporary `0x340` record and its constructor supplies defaults. Consumer analysis nevertheless confirms that each leading factor is used for compatibility and amount/capacity conversion for its corresponding transport type.
+
+The complete sequence is: covered, open, gravel, oil, cement, cooler, livestock, passenger, concrete, electric, vehicles, general, nuclear1, nuclear2, heating, water, sewage, and waste.
 
 `CollectResourcesCompatibleWithTransportType` (`1402AAC20`) provides direct consumer-side proof of this layout. Given a cargo/storage category from 0 through 17, it tests `ResourceRecord + 0xCC + category * 0x20`; resources whose value is positive are collected as compatible with that category. `ParseResourceTransportType` (`1402A15A0`) establishes the exact category-number-to-name mapping.
 
@@ -81,7 +83,7 @@ This is a material/recycling relationship, not necessarily a production-chain re
 - `+0x78/+0x7C` are confirmed direct price components; their precise economic labels remain unknown.
 - `+0x98/+0x9C/+0xA0` and `+0xB8/+0xBC/+0xC0` are confirmed dynamic-market response coefficients. Their mathematical roles are known, although official player-facing terminology is not.
 - `+0xC8` gates a runtime resource-pairing/cache path. Its exact logistics or production meaning remains unresolved. `+0x248` is also still unresolved.
-- Exact semantics and consumers of every repeated transport/presentation block.
+- Exact rendering/physics semantics of the later visual, flow, and flag parameters inside each transport profile.
 - `+0x310` (normally 0.3, but 1 for two records); likely a global physical/economic scaling parameter, not safely nameable yet.
 
 ## Main conclusion
