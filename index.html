@@ -102,11 +102,13 @@ tr:hover td:first-child { background-color: #303d48; }
 const source = document.getElementById('resources');
 const headers = [...source.tHead.rows[0].cells].map(cell => cell.innerText);
 headers[2] = 'resourceClass_0x44';
-headers[7] = 'directPriceComponentA';
-headers[8] = 'directPriceComponentB';
-headers[9] = 'priceRangeMultiplierA_low';
-headers[10] = 'priceRangeMultiplierA_high';
-headers[11] = 'positiveImbalanceScaleA';
+headers[5] = 'dollarBuyPrice';
+headers[6] = 'rubleBuyPrice';
+headers[7] = 'directDollarPriceComponent';
+headers[8] = 'directRublePriceComponent';
+headers[9] = 'dollarSellMultiplier';
+headers[10] = 'dollarBuyMultiplier';
+headers[11] = 'positiveImbalanceScaleDollar';
 const records = [...source.tBodies[0].rows].map((row, originalIndex) => ({
   originalIndex,
   values: [...row.cells].map(cell => cell.innerHTML),

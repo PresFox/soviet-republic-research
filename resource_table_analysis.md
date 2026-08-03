@@ -16,8 +16,8 @@ Source: `FUN_1402A1D60` and the post-processing functions `FUN_1402A92D0` and `F
 |---:|---|---|---|
 | `0x44` | `resourceClass_0x44` | Medium | A classification used mainly for special handling of negative classes. Positive values 0–4 are not used as recursion depth by `FUN_1402A9470`; their precise distinction remains unknown. |
 | `0x50` | `workerPriceMultiplier` | High | When positive, `FUN_1402A9F40` derives both prices by multiplying the workers-resource prices by this value. |
-| `0x58` | `calculatedPriceA` | High | Written by the recursive resource-price calculator and subsequently adjusted and bounded. |
-| `0x5C` | `calculatedPriceB` | High | Second price calculated in parallel with `+0x58`. Exact market/currency ordering is not yet proven. |
+| `0x58` | `dollarBuyPrice` | High | Matches the global-market dollar Buy value exactly after display rounding. |
+| `0x5C` | `rubleBuyPrice` | High | Matches the global-market ruble Buy value exactly after display rounding. |
 | `0x60` | `priceBoundA` | High | Calculated from price A and a multiplier; swapped with `+0x58` if the ordering is reversed. |
 | `0x64` | `priceBoundB` | High | Calculated from price B and a multiplier; swapped with `+0x5C` if required. |
 | `0x68`, `0x6C` | `productionCostAdjustmentA/B` | Medium-high | Calculated by scanning building production recipes and added to the two prices. |
@@ -29,7 +29,7 @@ Source: `FUN_1402A1D60` and the post-processing functions `FUN_1402A92D0` and `F
 | `0x2EC` | `isWasteResource` | High | Explicitly set only for the ten waste/fertiliser records. |
 | `0x30C` | `recyclingMaterialFamily` | High | Groups resources with the corresponding recoverable waste/material family; it does not match transport cargo classes. |
 
-`price A/B` deliberately avoids assigning rubles versus dollars until a caller proves the ordering.
+The global-market GUI comparison proves that side A is dollars and side B is rubles. With the usual 0.95/1.05 pair, a normal positive sell price equals `buy × 0.95 / 1.05`.
 
 ### `resourceClass_0x44` observations
 
@@ -74,7 +74,6 @@ This is a material/recycling relationship, not necessarily a production-chain re
 
 ## Still unresolved
 
-- Exact identities of price A and price B.
 - `+0x54`: almost exclusively populated for waste resources, but its exact waste-system meaning remains unverified.
 - `+0x78/+0x7C` are confirmed direct price components; their precise economic labels remain unknown.
 - `+0x98/+0x9C/+0xA0` and `+0xB8/+0xBC/+0xC0` are confirmed dynamic-market response coefficients; their exact player-facing terminology remains unknown.
